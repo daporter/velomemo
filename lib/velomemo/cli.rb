@@ -12,7 +12,7 @@ module Velomemo
       # entries = Velomemo::Parser.new(data).parse
       # stdout.puts Velomemo::Report.new(entries)
 
-      stdout.puts "$: #{$:}"
+      puts "options: #{options.inspect}"
     end
 
     def self.parse_options(stdout, args)
