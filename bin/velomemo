@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+#
+#  Created by David Porter on 2011-3-26.
+#  Copyright (c) 2011. All rights reserved.
+
+require 'rubygems'
+require 'velomemo'
+#require File.expand_path(File.dirname(__FILE__) + "/../lib/velomemo")
+
+Velomemo::CLI.execute(STDOUT, ARGV)
