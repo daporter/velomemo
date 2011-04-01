@@ -1,12 +1,12 @@
 module Velomemo
 
   class Report
-    def initialize(entries)
-      @entries = entries
+    def initialize(rides)
+      @rides = rides
     end
 
     def to_s
-      @entries.join("\n")
+      @rides.map(&:to_s).join("\n\n")
     end
   end
 

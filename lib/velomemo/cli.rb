@@ -7,9 +7,9 @@ module Velomemo
     def self.execute(stdout, args=[])
       options = parse_options(stdout, args)
       data    = File.read(options.file)
-      entries = Velomemo::Parser.parse(data)
+      rides   = Velomemo::Parser.parse(data)
 
-      stdout.puts Velomemo::Report.new(entries)
+      stdout.puts Velomemo::Report.new(rides)
     end
 
     def self.parse_options(stdout, args)
