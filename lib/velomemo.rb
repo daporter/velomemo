@@ -4,5 +4,4 @@ require 'velomemo/report'
 require 'velomemo/version'
 
 module Velomemo
-  # Your code goes here...
 end

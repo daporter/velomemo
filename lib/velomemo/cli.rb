@@ -1,18 +1,15 @@
 require 'optparse'
 require 'ostruct'
-require 'pp'
 
 module Velomemo
 
   class CLI
     def self.execute(stdout, args=[])
       options = parse_options(stdout, args)
+      data    = File.read(options.file)
+      entries = Velomemo::Parser.parse(data)
 
-      # data = File.read(options.file)
-      # entries = Velomemo::Parser.new(data).parse
-      # stdout.puts Velomemo::Report.new(entries)
-
-      puts "options: #{options.inspect}"
+      stdout.puts Velomemo::Report.new(entries)
     end
 
     def self.parse_options(stdout, args)

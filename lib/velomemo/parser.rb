@@ -1,12 +1,10 @@
+require 'yaml'
+
 module Velomemo
 
   class Parser
-    def initialize(data)
-      @data = data
-    end
-
-    def parse
-      @data.lines
+    def self.parse(data)
+      YAML::load(data)
     end
   end
 
