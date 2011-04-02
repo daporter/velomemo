@@ -15,5 +15,12 @@ describe Velomemo::Ride do
       @ride.to_s.should =~ /^               notes: foo$/
       @ride.to_s.should =~ /^            distance: 30$/
     end
+
+    it "wraps long values at 78 columns" do
+      notes = ("foo bar " * 7) + "baz bat"
+      ride = Velomemo::Ride.new(:notes => notes, :distance => 30)
+      lw = Velomemo::Ride::LABEL_WIDTH
+      ride.to_s.should =~ /^ {#{lw-5}}notes: (foo bar ){6}foo bar\n {#{lw}}  baz bat$/
+    end
   end
 end
