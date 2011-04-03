@@ -10,26 +10,23 @@ module Velomemo
 
     def to_s
       @data.map do |label, value|
-        value_segments = word_wrap(value.to_s).lines.to_a
-        s = sprintf("%#{LABEL_WIDTH}s: %s", label, value_segments[0])
-        value_segments[1..-1].each do |value_segment|
-          s << sprintf("%#{LABEL_WIDTH}s  %s", ' ', value_segment)
-        end
-        s
+        suffixes = word_wrap(value.to_s, LINE_WIDTH-LABEL_WIDTH-2).lines.to_a
+        prefixes =  [sprintf("%#{LABEL_WIDTH}s: ", label)]
+        prefixes << [" " * LABEL_WIDTH + "  "] * (suffixes.size - 1)
+        prefixes.zip(suffixes).flatten.join
       end.join("\n")
     end
 
     private
 
-    def word_wrap(text)
-      length = LINE_WIDTH - LABEL_WIDTH - 2
-      text.split("\n").collect do |line|
+    def word_wrap(text, length=80)
+      text.split("\n").map do |line|
         if line.length > length
           line.gsub(/(.{1,#{length}})(\s+|$)/, "\\1\n").strip
         else
           line
         end
-      end * "\n"
+      end.join("\n")
     end
   end
 
