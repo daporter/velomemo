@@ -1,4 +1,4 @@
-require "velomemo/word_wrap"
+require "velomemo/string_extensions"
 
 module Velomemo
 
@@ -9,8 +9,6 @@ module Velomemo
     end
 
     def to_s
-      String.send :include, WordWrap
-
       @data.map do |label, value|
         suffixes = wrap_and_split_lines(value)
         prefixes = label_and_blanks(label, suffixes.size)
@@ -21,7 +19,7 @@ module Velomemo
     private
 
     def wrap_and_split_lines(value)
-      value.to_s.wrap(value_width).lines.to_a
+      value.to_s.word_wrap(value_width).lines.to_a
     end
 
     def value_width
