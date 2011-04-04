@@ -6,7 +6,7 @@ module Velomemo
     end
 
     def to_s
-      @rides.map(&:to_s).join("\n\n")
+      @rides.map(&:to_s).join("\n")
     end
   end
 

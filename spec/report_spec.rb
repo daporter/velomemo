@@ -12,8 +12,8 @@ describe Velomemo::Report do
       @report.to_s
     end
 
-    it 'separates each ride by two newlines' do
-      @report.to_s.should == @rides.map(&:to_s).join("\n\n")
+    it 'separates each ride by a newlines' do
+      @report.to_s.should == @rides.map(&:to_s).join("\n")
     end
   end
 end
