@@ -1,4 +1,5 @@
 require 'optparse'
+require 'optparse/date'
 require 'ostruct'
 
 module Velomemo
@@ -18,8 +19,20 @@ module Velomemo
       opts = OptionParser.new
       opts.banner = "Usage: #{File.basename($0)} [options]"
 
-      opts.on("-f", "--file FILE", "Read entries from FILE") do |file|
-        options.file = file
+      opts.on("-b", "--begin DATE",
+              Date,
+              "Filter entries on or after DATE") do |b|
+        options.begin = b
+      end
+
+      opts.on("-e", "--end DATE",
+              Date,
+              "Filter entries before or on DATE") do |e|
+        options.end = e
+      end
+
+      opts.on("-f", "--file FILE", "Read entries from FILE") do |f|
+        options.file = f
       end
 
       opts.on_tail("-h", "--help", "Show this message") do
