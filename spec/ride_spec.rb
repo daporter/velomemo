@@ -1,4 +1,4 @@
-require "velomemo"
+require File.dirname(__FILE__) + '/spec_helper'
 
 describe Velomemo::Ride do
   describe "#to_s" do

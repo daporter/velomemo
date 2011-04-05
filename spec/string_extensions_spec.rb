@@ -1,4 +1,4 @@
-require "velomemo"
+require File.dirname(__FILE__) + '/spec_helper'
 require "velomemo/string_extensions"
 
 describe "String extensions" do
