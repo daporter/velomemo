@@ -1,12 +1,17 @@
 module Velomemo
 
   class Report
-    def initialize(rides)
-      @rides = rides
+    def initialize(rides, period=nil)
+      @rides  = rides
+      @period = period
+    end
+
+    def rides_in_period
+      @period ? @rides.find_all { |r| @period.includes?(r.date) } : @rides
     end
 
     def to_s
-      @rides.map(&:to_s).join("\n")
+      rides_in_period.map(&:to_s).join("\n")
     end
   end
 

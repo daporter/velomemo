@@ -8,6 +8,10 @@ module Velomemo
       @line_width = line_width
     end
 
+    def date
+      Date.parse(@data[:date])  if @data[:date]
+    end
+
     def to_s
       @data.map do |label, value|
         suffixes = wrap_and_split_lines(value)
