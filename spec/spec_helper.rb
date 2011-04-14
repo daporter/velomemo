@@ -1,7 +1,6 @@
 require "rspec/core"
 
-$LOAD_PATH << File.join(File.dirname(__FILE__), "..", "lib")
-require "velomemo"
+require_relative "../lib/velomemo"
 
 module CLIMatchers
   def it_requires_an_argument_for_option(option)

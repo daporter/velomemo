@@ -1,4 +1,4 @@
-require "velomemo/string_extensions"
+require_relative "string_extensions"
 
 module Velomemo
 

@@ -1,9 +1,9 @@
-require 'velomemo/cli'
-require 'velomemo/parser'
-require 'velomemo/period'
-require 'velomemo/report'
-require 'velomemo/ride'
-require 'velomemo/version'
+require_relative 'velomemo/cli'
+require_relative 'velomemo/parser'
+require_relative 'velomemo/period'
+require_relative 'velomemo/report'
+require_relative 'velomemo/ride'
+require_relative 'velomemo/version'
 
 module Velomemo
 end
