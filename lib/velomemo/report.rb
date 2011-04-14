@@ -1,13 +1,13 @@
 module Velomemo
 
   class Report
-    def initialize(rides, period=nil)
+    def initialize(rides, period)
       @rides  = rides
       @period = period
     end
 
     def rides_in_period
-      @period ? @rides.find_all { |r| @period.includes?(r.date) } : @rides
+      @rides.find_all { |r| @period.includes?(r.date) }
     end
 
     def to_s

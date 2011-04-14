@@ -1,14 +1,14 @@
 require File.join(File.dirname(__FILE__), "spec_helper")
 
 describe Velomemo::Ride do
-  describe "with no attribute 'date'" do
+  describe "when data has no attribute 'date'" do
     subject { Velomemo::Ride.new(:distance => 28) }
     its(:date) { should be_nil}
   end
 
-  describe "with an attribute 'date' (2011-04-06)" do
-    subject { Velomemo::Ride.new(:date => "2011-04-06", :distance => 28) }
-    its(:date) { should == Date.parse("2011-04-06") }
+  describe "when data has an attribute 'date'" do
+    subject { Velomemo::Ride.new("date" => Date.today, :distance => 28) }
+    its(:date) { should == Date.today }
   end
 
   describe "with line_width=78" do

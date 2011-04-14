@@ -9,7 +9,7 @@ module Velomemo
     end
 
     def date
-      Date.parse(@data[:date])  if @data[:date]
+      @data["date"]
     end
 
     def to_s
