@@ -2,8 +2,7 @@ module Velomemo
 
   class Report
     def initialize(rides, period)
-      @rides  = rides
-      @period = period
+      @rides, @period = rides, period
     end
 
     def rides_in_period

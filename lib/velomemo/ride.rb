@@ -4,8 +4,7 @@ module Velomemo
 
   class Ride
     def initialize(data, line_width=78)
-      @data       = data
-      @line_width = line_width
+      @data, @line_width = data, line_width
     end
 
     def date

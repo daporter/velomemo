@@ -1,8 +1,6 @@
 module Velomemo
 
   class Period
-    attr_reader :beginning, :end
-
     def initialize(b, e)
       if b && e && b > e
         raise ArgumentError, "Expected beginning <= end. Got #{b}, #{e}"
@@ -11,13 +9,15 @@ module Velomemo
       @beginning, @end = b, e
     end
 
-    def includes?(date)
-      return true                if date.nil?
-      return true                if @beginning.nil? && @end.nil?
-      return date <= @end        if @beginning.nil?
-      return @beginning <= date  if @end.nil?
+    attr_reader :beginning, :end
 
-      @beginning <= date && date <= @end
+    def includes?(date)
+      return true               if date.nil?
+      return true               if beginning.nil? && self.end.nil?
+      return date <= self.end   if beginning.nil?
+      return beginning <= date  if self.end.nil?
+
+      beginning <= date && date <= self.end
     end
   end
 
