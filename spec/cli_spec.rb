@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + "/spec_helper"
 
 describe Velomemo::CLI do
-  extend CLIMatchers
+  extend Velomemo::CLIMatchers
 
   describe "#parse_options" do
     # Custom matchers are defined in spec/spec_helper.rb

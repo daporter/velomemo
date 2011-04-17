@@ -5,8 +5,8 @@ require 'ostruct'
 module Velomemo
 
   class CLI
-    def self.execute(stdout, args=[])
-      options = parse_options(stdout, args)
+    def self.execute(stdout, stderr, args=[])
+      options = parse_options(stdout, stderr, args)
       data    = File.read(options.file)
       period  = Period.new(options.begin, options.end)
       rides   = Velomemo::Parser.parse(data)
@@ -14,7 +14,7 @@ module Velomemo
       stdout.puts Velomemo::Report.new(rides, period)
     end
 
-    def self.parse_options(stdout, args)
+    def self.parse_options(stdout, stderr, args)
       options = OpenStruct.new
 
       opts = OptionParser.new
@@ -46,7 +46,13 @@ module Velomemo
         exit
       end
 
-      opts.parse!(args)
+      begin
+        opts.parse!(args)
+      rescue OptionParser::InvalidArgument => e
+        stderr.puts "Error: #{e.message}"
+        exit 1
+      end
+
       options
     end
   end

@@ -5,4 +5,4 @@
 
 require 'velomemo'
 
-Velomemo::CLI.execute(STDOUT, ARGV)
+Velomemo::CLI.execute(STDOUT, STDERR, ARGV)
