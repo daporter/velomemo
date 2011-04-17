@@ -11,7 +11,7 @@ module Velomemo
       it "requires an argument for option '#{option}'" do
         expect do
           subject.parse_options(StringIO.new, StringIO.new, [option])
-        end.to raise_error(OptionParser::MissingArgument)
+        end.to exit_with_code(1)
       end
     end
 
