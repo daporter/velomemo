@@ -49,8 +49,7 @@ module Velomemo
       begin
         opts.parse!(args)
       rescue OptionParser::InvalidArgument, OptionParser::MissingArgument => e
-        stderr.puts "Error: #{e.message}"
-        exit 1
+        abort "Error: #{e.message}"
       end
 
       options
