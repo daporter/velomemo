@@ -1,3 +1,5 @@
+require 'bundler/setup'
+
 require_relative 'velomemo/cli'
 require_relative 'velomemo/parser'
 require_relative 'velomemo/period'
