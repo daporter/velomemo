@@ -4,16 +4,18 @@ module Velomemo
 
   class CLI
     def self.execute(stdout, stderr, args=[])
-      options = parse_options(stdout, stderr, args)
-      data    = File.read(options[:file])
-      period  = Period.new(options.begin, options.end)
-      rides   = Velomemo::Parser.parse(data)
+      @stdout, @stderr = stdout, stderr
 
-      stdout.puts Velomemo::Report.new(rides, period)
+      options = parse_options(args)
+      file    = options[:file] || ENV["VELOMEMO_FILE"]
+      rides   = Velomemo::Parser.parse(read_data(file))
+      period  = Period.new(options[:begin], options[:end])
+
+      @stdout.puts Velomemo::Report.new(rides, period)
     end
 
-    def self.parse_options(stdout, stderr, args)
-      $stdout, $stderr = stdout, stderr
+    def self.parse_options(args)
+      $stdout, $stderr = @stdout, @stderr
 
       options = Trollop::options(args) do
         version "#{File.basename($0)} #{Velomemo::VERSION}"
@@ -27,9 +29,21 @@ module Velomemo
         opt :end,   "Ignore rides after this date",  :type => Date
       end
 
-      Trollop::die :file, "must exist" if options[:file] unless File.exist?(options[:file])
-
       options
+    end
+
+    private
+
+    def self.read_data(file)
+      fail "Error: No journal file was specified" unless file
+      File.read(file)
+    rescue
+      fail "Error: Cannot read journal file '#{file}'"
+    end
+
+    def self.fail(message)
+      @stderr.puts message
+      exit(-1)
     end
   end
 
