@@ -4,7 +4,7 @@ module Velomemo
 
   class CLI
     def self.execute(stdout, stderr, args=[])
-      options = parse_options(args)
+      options = parse_options(stdout, stderr, args)
       data    = File.read(options[:file])
       period  = Period.new(options.begin, options.end)
       rides   = Velomemo::Parser.parse(data)
@@ -12,7 +12,9 @@ module Velomemo
       stdout.puts Velomemo::Report.new(rides, period)
     end
 
-    def self.parse_options(args)
+    def self.parse_options(stdout, stderr, args)
+      $stdout, $stderr = stdout, stderr
+
       options = Trollop::options(args) do
         version "#{File.basename($0)} #{Velomemo::VERSION}"
 
@@ -20,12 +22,12 @@ module Velomemo
           Usage: #{File.basename($0)} [options]
         EOS
 
-        opt :file,  "File containing ride data",     :type => ::String, :required => true
+        opt :file,  "File containing ride data",     :type => ::String
         opt :begin, "Ignore rides before this date", :type => Date
         opt :end,   "Ignore rides after this date",  :type => Date
       end
 
-      Trollop::die :file, "must exist" unless File.exist?(options[:file])
+      Trollop::die :file, "must exist" if options[:file] unless File.exist?(options[:file])
 
       options
     end
