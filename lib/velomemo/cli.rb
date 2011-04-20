@@ -10,8 +10,9 @@ module Velomemo
       file    = options[:file] || ENV["VELOMEMO_FILE"]
       rides   = Velomemo::Parser.parse(read_data(file))
       period  = Period.new(options[:begin], options[:end])
-
-      @stdout.puts Velomemo::Report.new(rides, period)
+      fields  = ARGV
+      
+      @stdout.puts Velomemo::Report.new(rides, period, fields)
     end
 
     def self.parse_options(args)

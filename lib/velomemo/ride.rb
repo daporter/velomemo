@@ -11,8 +11,8 @@ module Velomemo
       @data["date"]
     end
 
-    def to_s
-      @data.map do |label, value|
+    def to_s(fields_to_display=[])
+      filter_data(fields_to_display).map do |label, value|
         suffixes = wrap_and_split_lines(value)
         prefixes = label_and_blanks(label, suffixes.size)
         prefixes.zip(suffixes).flatten.join
@@ -20,6 +20,15 @@ module Velomemo
     end
 
     private
+
+    def filter_data(fields)
+      if fields.any?
+        fields << "date" << "notes"   # always include date and notes
+        @data.select { |label, _| fields.include?(label) }
+      else
+        @data
+      end
+    end
 
     def wrap_and_split_lines(value)
       value.to_s.word_wrap(value_width).lines.to_a

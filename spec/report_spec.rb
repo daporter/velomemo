@@ -4,7 +4,7 @@ describe Velomemo::Report do
   describe "#rides_in_period" do
     let(:ride)   { double("ride") }
     let(:period) { double("period") }
-    subject { Velomemo::Report.new([ride], period) }
+    subject { Velomemo::Report.new([ride], period, ["distance"]) }
 
     it "returns rides included in period" do
       ride.stub(:date) { Date.today }
@@ -35,10 +35,10 @@ describe Velomemo::Report do
       period
     end
 
-    subject { Velomemo::Report.new(rides, period) }
+    subject { Velomemo::Report.new(rides, period, ["distance", "time"]) }
 
     it 'uses the string representation of each ride' do
-      rides.each { |r| r.should_receive(:to_s) }
+      rides.each { |r| r.should_receive(:to_s).with(["distance", "time"]) }
       subject.to_s
     end
 

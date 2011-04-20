@@ -1,8 +1,8 @@
 module Velomemo
 
   class Report
-    def initialize(rides, period)
-      @rides, @period = rides, period
+    def initialize(rides, period, fields)
+      @rides, @period, @fields = rides, period, fields
     end
 
     def rides_in_period
@@ -10,7 +10,7 @@ module Velomemo
     end
 
     def to_s
-      rides_in_period.map(&:to_s).join("\n")
+      rides_in_period.map { |r| r.to_s(@fields) }.join("\n")
     end
   end
 
