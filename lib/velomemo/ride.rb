@@ -22,12 +22,7 @@ module Velomemo
     private
 
     def filter_data(fields)
-      if fields.any?
-        fields << "date" << "notes"   # always include date and notes
-        @data.select { |label, _| fields.include?(label) }
-      else
-        @data
-      end
+      @data.select { |label, _| fields.include?(label) }
     end
 
     def wrap_and_split_lines(value)

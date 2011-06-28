@@ -22,18 +22,18 @@ describe Velomemo::Ride do
       subject { Velomemo::Ride.new({ "notes" => "foo", "distance" => 30 }, 78) }
 
       it "displays each label-value pair separated by a newline" do
-        subject.to_s.should =~ /^\s*notes:\s+foo$/
-        subject.to_s.should =~ /^\s*distance:\s+30$/
+        subject.to_s(["notes"]).should    =~ /^\s*notes:\s+foo$/
+        subject.to_s(["distance"]).should =~ /^\s*distance:\s+30$/
       end
 
       it "right-aligns each label at column 20" do
-        subject.to_s.should =~ /^               notes: foo$/
-        subject.to_s.should =~ /^            distance: 30$/
+        subject.to_s(["notes"]).should    =~ /^               notes: foo$/
+        subject.to_s(["distance"]).should =~ /^            distance: 30$/
       end
 
       it "wraps long values at 78 columns" do
         ride = Velomemo::Ride.new({ "notes" => ("foo " * 14) + "bar" }, 78)
-        ride.to_s.should =~ /^ {15}notes: (foo ){13}foo\n {20}  bar$/
+        ride.to_s(["notes"]).should =~ /^ {15}notes: (foo ){13}foo\n {20}  bar$/
       end
     end
 
@@ -41,14 +41,6 @@ describe Velomemo::Ride do
       it "includes only the fields specified by arg" do
         subject.to_s(["week", "time"]).should =~ /^\s*week: 3\n\s*time: 55$/
         subject.to_s(["week", "time"]).should_not =~ /distance:/
-      end
-
-      it "includes 'date' field" do
-        subject.to_s(["distance"]).should =~ /^\s*date: 2011-04-20$/
-      end
-
-      it "includes 'notes' field" do
-        subject.to_s(["distance"]).should =~ /^\s*notes: foo$/
       end
     end
   end
