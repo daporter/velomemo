@@ -22,7 +22,11 @@ module Velomemo
     private
 
     def filter_data(fields)
-      @data.select { |label, _| fields.include?(label) }
+      if fields.any?
+        @data.select { |label, _| fields.include?(label) }
+      else
+        @data
+      end
     end
 
     def wrap_and_split_lines(value)
